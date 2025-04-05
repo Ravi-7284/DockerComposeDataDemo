@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: mssql-svc
+  namespace: dotnet-ns
+
+spec:
+  selector:
+    app: sql
+  ports:
+  - protocol: TCP
+    port: 1433
+    targetPort: 1433
+    
+  
