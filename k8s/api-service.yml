@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: api-svc
+  namespace: dotnet-ns
+spec:
+  selector:
+    app: dotnet
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+    

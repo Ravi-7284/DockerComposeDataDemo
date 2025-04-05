@@ -1,0 +1,35 @@
+kind: Deployment
+apiVersion: apps/v1
+
+metadata:
+  name: dotnet-deployment
+  namespace: dotnet-ns
+  labels:
+    app: dotnet
+  
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: dotnet
+    
+  template:
+    metadata:
+      name: dotnet-pod
+      namespace: dotnet-ns
+      labels:
+        app: dotnet
+    spec:
+      containers:
+      - name: dotnet-container
+        image: ravigampawar/dockercomposedatademo:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ConnectionStrings_DefaultConnection
+          value: "Server=sqlserver;Database=$(DB_NAME);User Id=sa;Password=$(SA_PASSWORD);Trust Server Certificate=True"
+        envFrom:
+        - secretRef:
+            name: mssql-secret
+        - configMapRef:
+            name: db-config
